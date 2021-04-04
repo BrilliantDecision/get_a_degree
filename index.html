@@ -6,17 +6,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Get a degree</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sidebar.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="page">
+  <div id="btn">
+    <div id='top'></div>
+    <div id='middle'></div>
+    <div id='bottom'></div>
+  </div>
+  <div id="box">
+    <div id="items">
+        <div class="item">Граф</div>
+        <div class="item">Генетический алгоритм</div>
+        <div class="item">Алгоритм Лина-Кернигана</div>
+        <div class="item">Гибридный алгоритм</div>
+        <div class="item">О программе</div>
+    </div>
+  </div>
+
+  <div id="page">
+    <div class="title_up">
+      <p>Полиалгоритм решения задачи коммивояжера</p>
+    </div>
     <div class="content">
       <div id="container"></div>
       <div id="chart"></div>
     </div>
     <div class="options">
-      <button class="button_start">Start</button>
+      <div class="outer_content">
+        <div class="inner_title">
+          <p>Генетический алгоритм</p>
+        </div>
+        <div class="inner_content">
+
+        </div>
+      </div>
+      <div class="outer_content">
+        <div class="inner_title">
+          <p>Алгоритм Лина-Курнигана</p>
+        </div>
+        <div class="inner_content">
+          
+        </div>
+      </div>
+      <div class="outer_content">
+        <div class="inner_title">
+          <p>Гибридный алгоритм</p>
+        </div>
+        <div class="inner_content">
+          
+        </div>
+      </div>
+      <div class="outer_content">
+        <div class="inner_title">
+          <p>Настройки</p>
+        </div>
+
+        <div class="inner_content">
+          <div class="title_input">
+            <p>Вершины: </p>
+            <input type="number" id="vertex_count" name="vertex_count" min="0" step="10">
+          </div>
+          <div class="title_input">
+            <p>Отображать все рёбра </p>
+            <input type="checkbox" id="see_all_edges" name="see_all_edges">
+          </div>
+          <div>
+            <button id="generate_button" class="button_start">Сгенерировать граф</button>
+          </div>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="button_start">+ Окно</button>
+        <button class="button_start">Стереть</button>
+      </div>
+      <div class="buttons">
+        <button id="start_button" class="button_start">Старт</button>
+        <button class="button_start">Запустить всё</button>
+      </div>
     </div>
   </div>
   <footer class="footer">
@@ -25,7 +94,11 @@
   </footer>
   <script src="sigma.js/build/sigma.min.js"></script>
   <script src="sigma.js/src/utils/sigma.utils.js"></script>
+  <script src="sigma.js/src/middlewares/sigma.middlewares.rescale.js"></script>
   <script src="initialize.js"></script>
   <script src="events.js"></script>
+  <script src="sidebar.js"></script>
+  <script>
+  </script>
 </body>
 </html>

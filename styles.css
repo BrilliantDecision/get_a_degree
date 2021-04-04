@@ -3,12 +3,29 @@ body {
     padding: 0;
 }
 
-.page {
+#page {
     display: flex;
     flex-direction: column;
     position: relative;
     min-height: 100vh;
     background-color:seashell;
+}
+
+.title_up {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    color: burlywood;
+    font-size: 36px;
+}
+
+.title_up p {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 53px;
+    margin-right: 53px;
 }
 
 .content {
@@ -43,14 +60,79 @@ body {
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
+    border: 2px solid blanchedalmond;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: white;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 5px;
+    max-width: 160px;
+}
+
+.buttons button {
+    width: 100%;
+}
+
+
+.outer_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 5px;
+    max-width: 300px;
+}
+
+.inner_title {
+    color: burlywood;
+    font-size: 16px;
+}
+
+.inner_title p {
+    margin: 2px;
+}
+
+.inner_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 5px;
+    padding: 10px;
+    border: 2px solid blanchedalmond;
+    background-color: seashell;
+}
+
+.title_input {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.title_input p {
+    margin: 2px;
+    color: sienna;
+}
+
+.title_input input {
+    outline: none;
+    border: 1px solid wheat;
+    max-width: 120px;
+}
 
 .button_start {
     background-color: #f44336;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 21px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -59,9 +141,19 @@ body {
     cursor: pointer;
   }
 
-  .button_start:hover {
+.button_start:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
+}
+
+.button_start:focus{
+    border: none;
+    outline: none;
+}
+
+.button_start:active {
+    opacity: 0.5;
+    transition-duration: 0.2s;
 }
 
 .footer {

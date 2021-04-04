@@ -1,7 +1,13 @@
-var s = new sigma();
-s.addCamera('cam0');
-s.addRenderer({
-  container: document.getElementById("container"),
-  camera: 'cam0',
-})
-s.refresh();
+// Initialise sigma:
+var s = new sigma(
+  {
+    renderer: {
+      container: document.getElementById('container'),
+      type: 'canvas'
+    },
+    settings: {
+      defaultNodeColor: '#ec5148',
+      sideMargin: 0.5,
+    }
+  }
+);
