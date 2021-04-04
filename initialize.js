@@ -6,6 +6,7 @@ var s = new sigma(
       type: 'canvas'
     },
     settings: {
+      minEdgeSize: 0.1,
       defaultNodeColor: '#ec5148',
       sideMargin: 0.5,
     }

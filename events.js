@@ -38,8 +38,21 @@ function generate_func() {
     all_edges_true = document.getElementById('see_all_edges')
     if (all_edges_true.checked == true) s.settings('drawEdges', true);
     else s.settings('drawEdges', false);
-    s.settings('minNodeSize', 7);
-    s.settings('maxNodeSize', 7);
     // Ask sigma to draw it
     s.refresh();
 };
+
+
+function change_vertex_size() {
+    let maxNodeSize = s.settings('maxNodeSize');
+    maxNodeSize = document.getElementById('vertex_size').value;
+    s.settings('maxNodeSize', maxNodeSize);
+    s.refresh();
+}
+
+function change_edges_size() {
+    let maxEdgeSize = s.settings('maxEdgeSize');
+    maxEdgeSize = document.getElementById('edge_size').value;
+    s.settings('maxEdgeSize', maxEdgeSize);
+    s.refresh();
+}
