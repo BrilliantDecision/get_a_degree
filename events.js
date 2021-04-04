@@ -42,6 +42,14 @@ function generate_func() {
     s.refresh();
 };
 
+function see_all_edges() {
+    all_edges_true = document.getElementById('see_all_edges')
+    if (all_edges_true.checked == true) s.settings('drawEdges', true);
+    else s.settings('drawEdges', false);
+    // Ask sigma to draw it
+    s.refresh();
+}
+
 
 function change_vertex_size() {
     let maxNodeSize = s.settings('maxNodeSize');
