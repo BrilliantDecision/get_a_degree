@@ -45,6 +45,11 @@ body {
     height: 600px;
 }
 
+#myChart {
+    width: 896px;
+    max-width: 896px;
+}
+
 #chart {
     margin-top: 20px;
     margin-bottom: 20px;

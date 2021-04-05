@@ -12,3 +12,6 @@ var s = new sigma(
     }
   }
 );
+
+var edge_matrix = []; // Матрица вершин, в ячейках id рёбер
+var all_edges = []; // id рёбер конечного пути
