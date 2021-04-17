@@ -1,5 +1,5 @@
 // Main function algorithm
-function start_two_opt(color) {
+function start_three_opt(color) {
     // Перекрашиваем рёбра
     for(let i = 0; i < all_edges.length; i++) {
         all_edges[i].color = '#11FFFF';

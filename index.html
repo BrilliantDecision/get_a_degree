@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="sidebar.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
   <div id="btn">
@@ -25,69 +26,138 @@
         <div class="item">О программе</div>
     </div>
   </div>
-
   <div id="page">
     <div class="title_up">
       <p>Полиалгоритм решения задачи коммивояжера</p>
     </div>
     <div class="content">
-      <div id="container"></div>
-      <div id="chart">
-        <canvas id="myChart"></canvas>
+      <div class="multi_container">
+        <div id="container"></div>
+        <div class="bottom_info">
+          <div class="bottom_title">
+            <p id="graph_info"></p>
+          </div>
+          <div class="prevnext_buttons">
+            <div>
+              <button id="prev_graph" class="prev_graph"><</button>
+            </div>
+            <div>
+              <button id="next_graph" class="next_graph">></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="multi_container">
+        <div id="chart">
+          <canvas id="myChart"></canvas>
+        </div>
+        <div class="bottom_info">
+          <div class="bottom_title">
+            <p id="chart_info"></p>
+          </div>
+          <div class="prevnext_buttons">
+            <div>
+              <button id="prev_chart" class="prev_chart"><</button>
+            </div>
+            <div>
+              <button id="next_chart" class="next_chart">></button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="options">
       <div class="outer_content">
         <div class="inner_title">
-          <p>Генетический алгоритм</p>
+          <p>Алгоритм отжига</p>
         </div>
         <div class="inner_content">
-          <div class="title_input">
-            <p>Поколения: </p>
-            <input type="number" id="it" name="it" min="1" step="10" max="1000">
-          </div>
-          <div class="title_input">
-            <p>Размер популяции: </p>
-            <input type="number" id="pop_count" name="pop_count" min="1" step="10" max="1000">
-          </div>
-          <div class="title_input">
-            <p>Участники турнира: </p>
-            <input type="number" id="participants_count" name="participants_count" min="1" step="10" max="10">
-          </div>
-          <div class="title_input">
-            <p>Шанс мутации: </p>
-            <input type="number" id="mut_chance" name="mut_chance" min="1" step="1" max="100">
-            <p>%</p>
-          </div>
-          <div class="title_input">
-            <p>Процент элиты: </p>
-            <input type="number" id="elite_percenage" name="elite_percenage" min="1" step="1" max="100">
-            <p>%</p>
-          </div>
+            <div class="title_input">
+              <p>Итерации: </p>
+              <input type="number" id="it_anneal" name="it_anneal" min="1" step="10" max="1000" value="200">
+            </div>
+            <div class="title_input">
+                <p>Итерации отжига: </p>
+                <input type="number" id="it_per_temp" name="it_per_temp" min="1" step="10" max="1000" value="5">
+            </div>
+            <div class="title_input">
+                <p>Макс. температура: </p>
+                <input type="number" id="tMax" name="tMax" min="1" step="10" max="1000" value="200">
+            </div>
         </div>
       </div>
+        <div class="outer_content">
+          <div class="inner_title">
+            <p>Генетический алгоритм</p>
+          </div>
+          <div class="inner_content">
+            <div class="title_input">
+              <p>Поколения: </p>
+              <input type="number" id="it_genetic" name="it_genetic" min="1" step="10" max="1000" value="200">
+            </div>
+            <div class="title_input">
+                <p>Размер популяции: </p>
+                <input type="number" id="pop_size" name="pop_size" min="1" step="10" max="1000" value="500">
+            </div>
+            <div class="title_input">
+                <p>Шанс мутации %</p>
+                <input type="number" id="mut_chance" name="mut_chance" min="0" step="0.1" max="1" value="0.1">
+            </div>
+            <div class="title_input">
+              <p>Порог уник. особей %</p>
+              <input type="number" id="unique_individuals" name="unique_individuals" min="0" step="0.1" max="1" value="0.1">
+            </div>
+            <div class="title_input">
+              <p>Оставить особей %</p>
+              <input type="number" id="save_individuals" name="save_individuals" min="0" step="0.1" max="1" value="0.6">
+            </div>
+          </div>
+        </div>
       <div class="outer_content">
         <div class="inner_title">
           <p>Гибридный алгоритм</p>
         </div>
         <div class="inner_content">
-          
+          <div class="title_input">
+              <p>Итерации отжига: </p>
+              <input type="number" id="it_per_temp_hybrid" name="it_per_temp_hybrid" min="1" step="10" max="5000" value="2">
+          </div>
+          <div class="title_input">
+              <p>Макс. температура: </p>
+              <input type="number" id="tMax_hybrid" name="tMax_hybrid" min="1" step="10" max="5000" value="200">
+          </div>
+          <div class="title_input">
+              <p>Поколения: </p>
+              <input type="number" id="it_genetic_hybrid" name="it_genetic_hybrid" min="1" step="10" max="5000" value="200">
+          </div>
+          <div class="title_input">
+              <p>Размер популяции: </p>
+              <input type="number" id="pop_size_hybrid" name="pop_size_hybrid" min="1" step="10" max="1000" value="500">
+          </div>
+          <div class="title_input">
+            <p>Порог уник. особей %</p>
+            <input type="number" id="unique_individuals_hybrid" name="unique_individuals_hybrid" min="0" step="0.1" max="1" value="0.1">
+          </div>
+          <div class="title_input">
+            <p>Оставить особей %</p>
+            <input type="number" id="save_individuals_hybrid" name="save_individuals_hybrid" min="0" step="0.1" max="1" value="0.8">
+          </div>
         </div>
       </div>
       <div class="outer_content">
         <div class="inner_title">
-          <p>Настройки</p>
+          <p>Рисование графа</p>
         </div>
-
         <div class="inner_content">
           <div class="title_input">
-            <p>Вершины: </p>
-            <input type="number" id="vertex_count" name="vertex_count" min="0" step="10">
+            <p>Включить рисование </p>
+            <input type="checkbox" id="see_all" name="see_all"
+            onclick="see_all()" Checked>
           </div>
           <div class="title_input">
-            <p>Отображать все рёбра </p>
+            <p>Отображать все пути </p>
             <input type="checkbox" id="see_all_edges" name="see_all_edges"
-            onclick="see_all_edges()">
+            onclick="see_all()">
           </div>
           <div class="title_input">
             <p>Размер вершин </p>
@@ -99,18 +169,51 @@
             <input type="range" id="edge_size" name="edge_size" min="0.1" max="4" step="0.1"
             oninput="change_edges_size()">
           </div>
-          <div>
+          <div class="title_input">
+            <p>Вершины: </p>
+            <input type="number" id="vertex_count" name="vertex_count" min="0" step="10" value="20">
+          </div>
+          <div class="title_input">
+            <p>Граф n-угольник </p>
+            <input type="checkbox" id="n_ugol" name="n_ugol">
+          </div>
+          <div class="red_button">
             <button id="generate_button" class="button_start">Сгенерировать граф</button>
           </div>
         </div>
       </div>
-      <div class="buttons">
-        <button class="button_start">+ Окно</button>
-        <button class="button_start">Стереть</button>
-      </div>
-      <div class="buttons">
-        <button id="start_button" class="button_start">Старт</button>
-        <button class="button_start">Запустить всё</button>
+      <div class="outer_content">
+        <div class="inner_title">
+          <p>Запуск</p>
+        </div>
+        <div class="inner_content">
+          <div class="title_input">
+            <p>Алгоритм отжига </p>
+            <input type="checkbox" id="annealing_check" name="annealing_check" oninput="change_checkbox()" Checked>
+          </div>
+          <div class="title_input">
+            <p>Генетический алгоритм </p>
+            <input type="checkbox" id="genetic_check" name="genetic_check" oninput="change_checkbox()" Checked>
+          </div>
+          <div class="title_input">
+            <p>Гибридный метод </p>
+            <input type="checkbox" id="hybrid_check" name="hybrid_check" oninput="change_checkbox()" Checked>
+          </div>
+          <div class="title_input">
+            <p>Число запусков: </p>
+            <input type="number" id="test_count" name="test_count" min="0" step="10" value="1">
+          </div>
+          <div class="title_input">
+            <p>Название теста: </p>
+            <input type="text" id="test_name" name="test_name">
+          </div>
+          <div class="red_button">
+            <button id="test_button" class="button_start">Тестировать</button>
+          </div>
+          <div class="red_button">
+            <button id="start_button" class="button_start">Старт</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -118,52 +221,16 @@
     <div class="divfooter">
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="sigma.js/build/sigma.min.js"></script>
   <script src="sigma.js/src/utils/sigma.utils.js"></script>
   <script src="sigma.js/src/middlewares/sigma.middlewares.rescale.js"></script>
-  <script src="initialize.js"></script>
   <script src="events.js"></script>
   <script src="sidebar.js"></script>
-  <!--<script src="genetic.js"></script>-->
-  <script src="2opt.js"></script>
+  <script src="annealing.js"></script>
+  <script src="genetic.js"></script>
+  <script src="hybrid.js"></script>
   <script src="helpers.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
-  });
-  </script>
+  <script src="initialize.js"></script>
 </body>
 </html>
