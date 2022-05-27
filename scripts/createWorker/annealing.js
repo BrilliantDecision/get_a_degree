@@ -20,7 +20,7 @@ const createAnnealingWorker = () => {
             else if(e.data.flag) {
                 redrawEdges(e.data.path);
             } else {
-                createGraphInfo(e.data.time, annealingTitle, e.data.len);
+                createGraphInfo(e.data.time, 'Алгоритм отжига', e.data.len);
 
                 if(!ifDraw) {
                     redrawEdges(e.data.path);

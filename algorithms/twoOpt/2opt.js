@@ -1,23 +1,14 @@
-const startTwoOpt = () => {
-    const nodes = s.graph.nodes();
+const doTwoOpt = (values) => {
+    const { nodes, ifDraw } = values;
     const nodesLen = nodes.length;
     const matrix = createMatrix(nodesLen, nodes);
-    const setOfRandomNodes = [];
-    let currentBestPath = generateRandomNodes(nodesLen);
 
-    for(let i = 0; i < 1000; i++) {
-        setOfRandomNodes.push(generateRandomNodes(nodesLen));
-
-        if(getFitness(currentBestPath, matrix) > getFitness(setOfRandomNodes[i], matrix)) {
-            currentBestPath = setOfRandomNodes[i];
-        }
-    }
-
-    let currentBestLen = getFitness(currentBestPath, matrix);
+    let [currentBestPath, currentBestLength] = setRandomSolve(nodesLen, matrix);
     let o = true;
-    const timeInMs = Date.now();
+
+    const time = Date.now();
     
-    while(o == true) {
+    while(o) {
         let start = true;
         let i = 0;
         
@@ -26,21 +17,32 @@ const startTwoOpt = () => {
 
             while(k < nodesLen - 1 && start) {
                 const newPath = getOptSwap(currentBestPath, i, k);
-                const newLen = getFitness(newPath, matrix);
+                const newLength = getFitness(newPath, matrix);
 
-                if(newLen < currentBestLen) {
+                if(newLength < currentBestLength) {
                     currentBestPath = newPath;
-                    currentBestLen = newLen;
+                    currentBestLength = newLength;
                     start = false;
-                    redrawEdges(currentBestPath);
+
+                    if(ifDraw) {
+                        self.postMessage({
+                            flag: 1, 
+                            path: currentBestPath 
+                        });
+                    }
                 }
                 k++;
             }
             i++;
         }
-        if(start == true) {
+        if(start) {
             o = false;
         }
     }
-    return [currentBestPath,  (Date.now() - timeInMs) / 1000, currentBestLen];
+    return { 
+        flag: 0,
+        time: Math.ceil((Date.now() - time) / 1000), 
+        len: Math.ceil(currentBestLength),
+        path: currentBestPath,
+    };
 }

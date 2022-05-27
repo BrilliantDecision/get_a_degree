@@ -18,5 +18,3 @@ let edgeMatrix, ids;
 let menuGraphShift = false;
 let menuAlgShift = false;
 let eventListenerId;
-
-const annealingTitle = "Алгоритм отжига";

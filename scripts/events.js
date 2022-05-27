@@ -1,5 +1,4 @@
 const createGraphInfo = (time, title, length) => {
-    const container = document.getElementById('graph-info');
     const graphTitle = document.getElementById('graph-title');
     const graphTime = document.getElementById('graph-time');
     const graphLen = document.getElementById('graph-length');
@@ -17,6 +16,21 @@ const createTest = () => {
 
     if (alg === 'annealing') {
         createAnnealingWorker();
+    }
+    else if(alg === 'iis') {
+        createIisWorker();
+    }
+    else if(alg === 'evoDarwin') {
+        createEvoDarwinWorker();
+    }
+    else if(alg === 'evoDeFriz') {
+        createEvoDeFrizWorker();
+    }
+    else if (alg === '2opt') {
+        create2optWorker();
+    }
+    else if (alg === '3opt') {
+        create3optWorker();
     }
 }
 

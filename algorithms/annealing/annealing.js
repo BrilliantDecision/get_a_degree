@@ -14,7 +14,8 @@ const doAnnealing = (values) => {
     for (let i = 1; i <= it; i++) {
         self.postMessage({
             it: i    
-        })
+        });
+        
         for (let j = 1; j <= itPerTemp; j++) {
 
             challengerPath = annealSwap(challengerPath);

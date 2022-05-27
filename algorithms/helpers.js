@@ -96,3 +96,34 @@ function rand_swap(current_path, n) {
     current_path[i] = current_path[k];
     current_path[k] = temp;
 }
+
+// Get length and index of the best path
+function get_best_path(population, init_pop_size, matrix) {
+    let j = 0;
+    let best_len = getFitness(population[0], matrix);
+    let len = 0;
+    for(let i = 1; i < init_pop_size; i++) {
+        len = getFitness(population[i], matrix);
+        if(len < best_len) {
+            best_len = len;
+            j = i;
+        }
+    }
+    return [population[j], best_len];
+}
+
+// Create population
+function create_population(n, pop_size) {
+    let population = [];
+    let one_population = [];
+    for(let i = 0; i < n; i++) {
+        one_population.push(i);
+    }
+    let new_arr = shuffle(one_population);
+    population.push(new_arr);
+    for(let i = 1; i < pop_size; i++) {
+        new_arr = shuffle(one_population);
+        population.push(new_arr);
+    }
+    return population;
+}

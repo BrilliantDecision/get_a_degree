@@ -101,6 +101,8 @@
           </div>
         </div>
         <div class="optionsAlg">
+
+          <!--Алгоритм отжига-->
           <div class="choiceAndOptions">
             <div class="option alg-option">
               <input
@@ -114,10 +116,15 @@
                 <button>Алгоритм отжига</button>
               </div>
             </div>
+
             <div class="optionsList" id="annealingOpt">
               <div class="adjustOption">
                 <p>Число итераций:</p>
-                <input type="number" id="onChangeAnnealIter" value="200" />
+                <input 
+                  type="number" 
+                  id="onChangeAnnealIter" 
+                  value="200" 
+                />
               </div>
               <div class="adjustOption">
                 <p>Число итераций в температуру:</p>
@@ -129,35 +136,238 @@
               </div>
               <div class="adjustOption">
                 <p>Начальная температура:</p>
-                <input type="number" id="onChangeAnnealTemp" value="200" />
+                <input 
+                  type="number" 
+                  id="onChangeAnnealTemp" 
+                  value="200" 
+                />
               </div>
             </div>
           </div>
+
+          <!--Эволюция Дарвина-->
+          <div class="choiceAndOptions">
+            <div class="option alg-option">
+              <input
+                type="radio"
+                id="darwin-id"
+                name="radioAlg"
+                value="evoDarwin"
+              />
+              <div class="pWrapper" onclick="optionHiderEvoDarwin()">
+                <button>Эволюция Дарвина</button>
+              </div>
+            </div>
+
+            <div class="optionsList" id="evoDarwinOpt">
+              <div class="adjustOption">
+                <p>Число поколений:</p>
+                <input 
+                  type="number" 
+                  id="onChangeDarwinIter" 
+                  value="200" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Размер популяции:</p>
+                <input 
+                  type="number" 
+                  id="onChangeDarwinPopSize" 
+                  value="200" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Участники турнира:</p>
+                <input
+                  type="number"
+                  id="onChangeDarwinTournament"
+                  value="2"
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Шанс мутации:</p>
+                <input 
+                  type="number" 
+                  id="onChangeDarwinMutChance" 
+                  value="0.1" 
+                />
+              </div>
+            </div>
+          </div>
+
+          <!--Эволюция де Фриза-->
+          <!--Уничтожить 50% популяции, остальные - мутация несколько раз над каждой особью случайным образом-->
+          <div class="choiceAndOptions">
+            <div class="option alg-option">
+              <input
+                type="radio"
+                id="deFriz-id"
+                name="radioAlg"
+                value="evoDeFriz"
+              />
+              <div class="pWrapper" onclick="optionHiderEvoDeFriz()">
+                <button>Эволюция де Фриза</button>
+              </div>
+            </div>
+
+            <div class="optionsList" id="evoDeFrizOpt">
+              <div class="adjustOption">
+                <p>Число поколений:</p>
+                <input 
+                  type="number" 
+                  id="onChangeDeFrizIter" 
+                  value="200" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Размер популяции:</p>
+                <input 
+                  type="number" 
+                  id="onChangeDeFrizPopSize" 
+                  value="200" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Участники турнира:</p>
+                <input
+                  type="number"
+                  id="onChangeDeFrizTournament"
+                  value="2"
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Шанс мутации:</p>
+                <input 
+                  type="number" 
+                  id="onChangeDeFrizMutChance" 
+                  value="0.1" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Итерации встряски:</p>
+                <input 
+                  type="number" 
+                  id="onChangeDeFrizReviseIt" 
+                  value="50" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Итерации мутаций:</p>
+                <input 
+                  type="number" 
+                  id="onChangeDeFrizMutIt" 
+                  value="10" 
+                />
+              </div>
+            </div>
+          </div>
+
+          <!--Алгоритм искусственной имунной системы-->
+          <div class="choiceAndOptions">
+            <div class="option alg-option">
+              <input
+                type="radio"
+                id="iis-id"
+                name="radioAlg"
+                value="iis"
+                checked
+              />
+              <div class="pWrapper" onclick="optionHiderIis()">
+                <button>Алгоритм ИИС</button>
+              </div>
+            </div>
+
+            <div class="optionsList" id="iisOpt">
+              <div class="adjustOption">
+                <p>Число итераций:</p>
+                <input 
+                  type="number" 
+                  id="onChangeIisIter" 
+                  value="200" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Начальное число клеток:</p>
+                <input
+                  type="number"
+                  id="onChangeIisBodies"
+                  value="200"
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Число клеток отбора:</p>
+                <input 
+                  type="number" 
+                  id="onChangeIisSelect" 
+                  value="10" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Число клонов клетки:</p>
+                <input 
+                  type="number" 
+                  id="onChangeIisClones" 
+                  value="20" 
+                />
+              </div>
+              <div class="adjustOption">
+                <p>Параметр альфа:</p>
+                <input 
+                  type="number" 
+                  id="onChangeIisAlpha" 
+                  value="0.001" 
+                />
+              </div>
+            </div>
+          </div>
+
+          <!--Алгоритм 2-замены-->
           <div class="option alg-option">
-            <input
-              type="radio"
-              id="genetic-id"
-              name="radioAlg"
-              value="genetic"
-            />
+            <input type="radio" id="2opt-id" name="radioAlg" value="2opt" />
             <div class="pWrapper">
-              <button>Генетический алгоиртм</button>
+              <button>Алгоритм 2-замены</button>
+            </div>
+          </div>
+
+          <!--Алгоритм 3-замены-->
+          <div class="option alg-option">
+            <input type="radio" id="3opt-id" name="radioAlg" value="3opt" />
+            <div class="pWrapper">
+              <button>Алгоритм 3-замены</button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="sigma.js/build/sigma.min.js"></script>
-    <script src="sigma.js/src/utils/sigma.utils.js"></script>
-    <script src="sigma.js/src/middlewares/sigma.middlewares.rescale.js"></script>
+    <!--sigma.js DIR-->
+    <script src="/sigma.js/build/sigma.min.js"></script>
+    <script src="/sigma.js/src/utils/sigma.utils.js"></script>
+    <script src="/sigma.js/src/middlewares/sigma.middlewares.rescale.js"></script>
+
+    <!--scripts DIR-->
     <script src="/scripts/init.js"></script>
     <script src="/scripts/helpers.js"></script>
     <script src="/scripts/events.js"></script>
     <script src="/scripts/utils.js"></script>
-    <script src="/algorithms/annealing/utils.js"></script>
-    <script src="/algorithms/annealing/options.js"></script>
+
+    <!--Algorithms DIR-->
+    <script src="/algorithms/utils.js"></script>
     <script src="/algorithms/helpers.js"></script>
+
+    <!--Algorithms utils-->
+    <script src="/algorithms/annealing/utils.js"></script>
+    <script src="/algorithms/evoDarwin/utils.js"></script>
+    <script src="/algorithms/evoDeFriz/utils.js"></script>
+    <script src="/algorithms/iis/utils.js"></script>
+    <script src="/algorithms/threeOpt/utils.js"></script>
+
+    <!--createWorker DIR-->
+    <script src="/scripts/createWorker/3opt.js"></script>
+    <script src="/scripts/createWorker/2opt.js"></script>
+    <script src="/scripts/createWorker/iis.js"></script>
+    <script src="/scripts/createWorker/evoDeFriz.js"></script>
+    <script src="/scripts/createWorker/evoDarwin.js"></script>
     <script src="/scripts/createWorker/annealing.js"></script>
   </body>
 </html>
