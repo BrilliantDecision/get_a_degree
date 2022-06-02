@@ -16,6 +16,7 @@ function doIis(values) {
     let [bestPath, bestLength] = get_best_path(population, bodiesNum, matrix); //путь, длина пути
     let currentIt = 1;
 
+    const incomePopSize = bodiesNum - selectBodiesNum;
     const time = Date.now();
     
     while (currentIt <= it) {
@@ -26,8 +27,9 @@ function doIis(values) {
         
         const clones = createClones(population, clonesNum);
         mutateClones(clones, alpha, nodesLen, matrix);
-        population = reunitePopulation(bodiesNum, clones, population, matrix);
-        const [currentPath, currentLength] = getBestClone(clones, matrix); 
+        changeParentIfCloneBest(population, clones, matrix);
+
+        const [currentPath, currentLength] = getBestPath(population, matrix); 
         
         if (bestLength > currentLength) {
             bestPath = [...currentPath];
@@ -41,6 +43,7 @@ function doIis(values) {
             }
         }
 
+        population = [...population, ...create_population(nodesLen, incomePopSize)];
         currentIt++;
     }
 

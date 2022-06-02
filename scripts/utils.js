@@ -15,3 +15,11 @@ const optionHiderGenetic = () => {
         options.style.display = "flex";
     }
 }
+
+const getWindowWidth = () => {
+    return Math.round(parseInt(document.querySelector('.sigma-scene').style.width, 10) * 0.95);
+}
+
+const getWindowHeight = () => {
+    return Math.round(parseInt(document.querySelector('.sigma-scene').style.height, 10) * 0.95);
+}

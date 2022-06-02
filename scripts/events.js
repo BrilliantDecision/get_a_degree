@@ -49,8 +49,8 @@ const generateNodesAndEdges = () => {
         nodes.push({ 
             "id": vertex, 
             "label": vertex, 
-            "x": Math.random()*1950, 
-            "y": Math.random()*1200, 
+            "x": Math.random()*getWindowWidth(), 
+            "y": Math.random()*getWindowHeight(), 
             "size": 1
         });
 

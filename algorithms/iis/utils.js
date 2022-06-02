@@ -49,7 +49,8 @@ const getClones = (clonesNum, body) => {
 }
 
 const mutate = (alpha, clone, n, matrix) => {
-    const mutIt = Math.ceil(Math.exp(alpha * getFitness(clone, matrix)));
+    // const mutIt = Math.ceil(Math.exp(alpha * getFitness(clone, matrix)));
+    const mutIt = 12;
 
     for(let i = 0; i < mutIt; i++) {
         rand_swap(clone, n);
@@ -60,33 +61,40 @@ const createClones = (population, clonesNum) => {
     const clones = [];
 
     for(const body of population) {
-        clones.push(...getClones(clonesNum, body));
+        clones.push(getClones(clonesNum, body));
     }
 
     return clones;
 }
 
 const mutateClones = (clones, alpha, n, matrix) => {
-    for(const clone of clones) {
-        mutate(alpha, clone, n, matrix);
+    for(const cloneArr of clones) {
+        for(const clone of cloneArr) {
+            mutate(alpha, clone, n, matrix);
+        }
     }
 }
 
-const getBestClone = (clones, matrix) => {
-    let bestClone = clones[0];
+const getBestPath = (paths, matrix) => {
+    let bestPath = paths[0];
 
-    for(const clone of clones) {
-        if(getFitness(clone, matrix) <= getFitness(bestClone, matrix)) {
-            bestClone = [...clone];
+    for(const path of paths) {
+        if(getFitness(path, matrix) <= getFitness(bestPath, matrix)) {
+            bestPath = [...path];
         }
     }
 
-    return [bestClone, getFitness(bestClone, matrix)];
+    return [bestPath, getFitness(bestPath, matrix)];
 }
 
-const reunitePopulation = (bodiesNum, clones, population, matrix) => {
-    const newPop = [...clones, ...population];
-    return selection(bodiesNum, newPop, matrix);
+const changeParentIfCloneBest = (population, clones, matrix) => {
+    for(let i = 0; i < population.length; i++) {
+        const [bestClone, bestCloneLength] = getBestPath(clones[i], matrix);
+
+        if(getFitness(population[i], matrix) > bestCloneLength) {
+            population[i] = [...bestClone];
+        }
+    }
 }
 
 // Create population
