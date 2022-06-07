@@ -3,7 +3,6 @@ function doEvoDarwin(values) {
         it,
         popSize,
         tourParticipants,
-        mutChance,
         nodes,
         ifDraw
     } = values;
@@ -22,10 +21,13 @@ function doEvoDarwin(values) {
         self.postMessage({
             it: currentIt    
         });
+        // let pairs = inbreeding(population, matrix);
         let pairs = get_pairs(population, initPopSize, matrix);
         let children = cycle_crossover(pairs, population, nodesLen);
-        gen_mutate(children, nodesLen, mutChance);
+        gen_mutate(children, 1 - currentIt / it); 
         population = tournament(tourParticipants, initPopSize, children, matrix);
+        // children.sort((a,b) => getFitness(b, matrix) - getFitness(a, matrix));
+        // population = eliteSelection(children, initPopSize);
 
         const [currentPath, currentLength] = get_best_path(population, initPopSize, matrix);
         
@@ -46,7 +48,7 @@ function doEvoDarwin(values) {
 
     return { 
         flag: 0,
-        time: Math.ceil((Date.now() - time) / 1000), 
+        time: roundTime(time), 
         len: Math.ceil(bestLength),
         path: bestPath,
     };

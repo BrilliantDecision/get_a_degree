@@ -47,7 +47,7 @@
               class="nodes-count"
               min="0"
               step="10"
-              value="20"
+              value="100"
             />
           </div>
           <div class="option">
@@ -163,7 +163,7 @@
                 <input 
                   type="number" 
                   id="onChangeDarwinIter" 
-                  value="200" 
+                  value="3500" 
                 />
               </div>
               <div class="adjustOption">
@@ -171,7 +171,7 @@
                 <input 
                   type="number" 
                   id="onChangeDarwinPopSize" 
-                  value="200" 
+                  value="500" 
                 />
               </div>
               <div class="adjustOption">
@@ -180,14 +180,6 @@
                   type="number"
                   id="onChangeDarwinTournament"
                   value="2"
-                />
-              </div>
-              <div class="adjustOption">
-                <p>Шанс мутации:</p>
-                <input 
-                  type="number" 
-                  id="onChangeDarwinMutChance" 
-                  value="0.1" 
                 />
               </div>
             </div>
@@ -214,7 +206,7 @@
                 <input 
                   type="number" 
                   id="onChangeDeFrizIter" 
-                  value="200" 
+                  value="3500" 
                 />
               </div>
               <div class="adjustOption">
@@ -222,7 +214,7 @@
                 <input 
                   type="number" 
                   id="onChangeDeFrizPopSize" 
-                  value="200" 
+                  value="400" 
                 />
               </div>
               <div class="adjustOption">
@@ -234,19 +226,11 @@
                 />
               </div>
               <div class="adjustOption">
-                <p>Шанс мутации:</p>
-                <input 
-                  type="number" 
-                  id="onChangeDeFrizMutChance" 
-                  value="0.1" 
-                />
-              </div>
-              <div class="adjustOption">
                 <p>Итерации встряски:</p>
                 <input 
                   type="number" 
                   id="onChangeDeFrizReviseIt" 
-                  value="50" 
+                  value="10" 
                 />
               </div>
               <div class="adjustOption">
@@ -254,66 +238,15 @@
                 <input 
                   type="number" 
                   id="onChangeDeFrizMutIt" 
-                  value="10" 
+                  value="1" 
                 />
               </div>
-            </div>
-          </div>
-
-          <!--Алгоритм искусственной имунной системы-->
-          <div class="choiceAndOptions">
-            <div class="option alg-option">
-              <input
-                type="radio"
-                id="iis-id"
-                name="radioAlg"
-                value="iis"
-                checked
-              />
-              <div class="pWrapper" onclick="optionHiderIis()">
-                <button>Алгоритм ИИС</button>
-              </div>
-            </div>
-
-            <div class="optionsList" id="iisOpt">
               <div class="adjustOption">
-                <p>Число итераций:</p>
+                <p>Процент уникальных особей:</p>
                 <input 
                   type="number" 
-                  id="onChangeIisIter" 
-                  value="200" 
-                />
-              </div>
-              <div class="adjustOption">
-                <p>Начальное число клеток:</p>
-                <input
-                  type="number"
-                  id="onChangeIisBodies"
-                  value="200"
-                />
-              </div>
-              <div class="adjustOption">
-                <p>Число клеток отбора:</p>
-                <input 
-                  type="number" 
-                  id="onChangeIisSelect" 
-                  value="10" 
-                />
-              </div>
-              <div class="adjustOption">
-                <p>Число клонов клетки:</p>
-                <input 
-                  type="number" 
-                  id="onChangeIisClones" 
-                  value="20" 
-                />
-              </div>
-              <div class="adjustOption">
-                <p>Параметр альфа:</p>
-                <input 
-                  type="number" 
-                  id="onChangeIisAlpha" 
-                  value="0.001" 
+                  id="onChangeDeFrizUniqueNum" 
+                  value="0.5" 
                 />
               </div>
             </div>
@@ -334,6 +267,15 @@
               <button>Алгоритм 3-замены</button>
             </div>
           </div>
+
+          <!--Алгоритм ближайшего соседа-->
+          <div class="option alg-option">
+            <input type="radio" id="nearest-id" name="radioAlg" value="nearest" />
+            <div class="pWrapper">
+              <button>Алгоритм ближайшего соседа</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -357,13 +299,12 @@
     <script src="/algorithms/annealing/utils.js"></script>
     <script src="/algorithms/evoDarwin/utils.js"></script>
     <script src="/algorithms/evoDeFriz/utils.js"></script>
-    <script src="/algorithms/iis/utils.js"></script>
     <script src="/algorithms/threeOpt/utils.js"></script>
 
     <!--createWorker DIR-->
+    <script src="/scripts/createWorker/nearest.js"></script>
     <script src="/scripts/createWorker/3opt.js"></script>
     <script src="/scripts/createWorker/2opt.js"></script>
-    <script src="/scripts/createWorker/iis.js"></script>
     <script src="/scripts/createWorker/evoDeFriz.js"></script>
     <script src="/scripts/createWorker/evoDarwin.js"></script>
     <script src="/scripts/createWorker/annealing.js"></script>

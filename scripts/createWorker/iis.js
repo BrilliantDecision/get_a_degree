@@ -6,9 +6,7 @@ const createIisWorker = () => {
         const values = {
             it: onIisIter(),
             bodiesNum: onIisBodies(),
-            selectBodiesNum: onIisSelect(),
             clonesNum: onIisClones(),
-            alpha: onIisAlpha(),
             nodes: s.graph.nodes(),
             ifDraw
         }
@@ -22,7 +20,7 @@ const createIisWorker = () => {
             else if(e.data.flag) {
                 redrawEdges(e.data.path);
             } else {
-                createGraphInfo(e.data.time, 'Алгоритм искусственной имунной системы (CLONALG)', e.data.len);
+                createGraphInfo(e.data.time, 'Алгоритм искусственной имунной системы', e.data.len);
 
                 if(!ifDraw) {
                     redrawEdges(e.data.path);

@@ -32,7 +32,7 @@ const doThreeOpt = (values) => {
 
     return {
         flag: 0,
-        time: Math.ceil((Date.now() - time) / 1000),
+        time: roundTime(time),
         len: Math.ceil(getFitness(path, matrix)),
         path: path,
     };

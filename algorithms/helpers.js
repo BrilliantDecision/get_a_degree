@@ -63,6 +63,16 @@ const generateRandomNodes = nodesLen => {
     return shuffle(nodes);
 }
 
+const getRandPath = (n) => {
+    const path = [];
+
+    for(let i = 0; i < n; i++){
+        path.push(i);
+    }
+
+    return path;
+}
+
 function getOptSwap(currentPath, i, k) {
     let  newPath = currentPath.slice(0, i);
     newPath = newPath.concat(currentPath.slice(i, k + 1).reverse());
@@ -126,4 +136,157 @@ function create_population(n, pop_size) {
         population.push(new_arr);
     }
     return population;
+}
+
+function gen_mutate(population, mut_chance) {
+    for(let j = 0; j < population.length; j++) {
+        if(getRndInteger(0, 1001) / 10.0 < mut_chance){
+            population[j] = annealSwap(population[j]);
+        }
+    }
+}
+
+const inbreeding = (population, matrix) => {
+    const pairs = [];
+
+    for(let j = 0; j < population.length; j++) {   
+        const i = getRndInteger(0, population.length);
+
+        let leftPath = population[i], rightPath = population[i];
+        let iLeft = i - 1, iRight = i + 1;
+        const centerFitness = getFitness(population[i], matrix);
+
+        while(iRight < population.length) {
+            if(centerFitness !== getFitness(population[iRight], matrix)) {
+                rightPath = population[iRight];
+                break;
+            }
+
+            iRight += 1;
+        }
+        
+        while(iLeft > -1) {
+            if(getFitness(population[iLeft], matrix) !== centerFitness) {
+                leftPath = population[iLeft];
+                break;
+            }
+
+            iLeft -= 1;
+        }
+
+        const leftFitness = getFitness(leftPath, matrix);
+        const rightFitness = getFitness(rightPath, matrix);
+
+        if(leftFitness === centerFitness) {
+            pairs.push([i, iRight]);
+        }
+        else if(rightFitness === centerFitness) {
+            pairs.push([i, iLeft]);
+        }
+        else {
+            if(leftFitness - centerFitness > centerFitness - rightFitness) {
+                pairs.push([i, iRight]);
+            } 
+            else {
+                pairs.push([i, iLeft]);
+            }
+        }
+    }
+
+    return pairs;
+}
+
+const eliteSelection = (population, initPopSize) => {
+    return population.slice(0, initPopSize);
+}
+
+// Упорядоченный оператор кроссинговера
+function cycle_crossover(pairs, population, chromosome_length) {
+    let individuals = [];
+    for(let i = 0; i < pairs.length; i++) {
+        let parent0 = population[pairs[i][0]];
+        let parent1 = population[pairs[i][1]];
+        individuals.push(cycle_help(parent0, parent1, chromosome_length));
+        individuals.push(cycle_help(parent1, parent0, chromosome_length));
+    }
+    return individuals;
+}
+
+function cycle_help(parent0, parent1, chromosome_length) {
+    let o1 = [];
+    let position = 0;
+    for(let j = 0; j < chromosome_length; j++) {
+        o1.push(-1);
+    }
+    let o = true;
+    while(o) {
+        if(parent0[position] == parent1[position]) {
+            o1[position] = parent0[position];
+            position += 1;
+            if(position == chromosome_length) o = false;
+        }
+        else {
+            let k = true;
+            let visited_list = [parent0[position]];
+            o1[position] = parent0[position];
+            while(k) {
+                visited_list.push(parent1[position]);
+                position = parent0.indexOf(parent1[position]);
+                o1[position] = parent0[position];
+                if(visited_list.includes(parent1[position])) {
+                    k = false;
+                    for(let z = 0; z < o1.length; z++) {
+                        if(o1[z] == -1) {
+                            o1[z] = parent1[z];
+                        }
+                    }
+                }
+                else if(visited_list.length == chromosome_length) {
+                    k = false;
+                }
+            }
+            o = false;
+        }
+    }
+    return o1;
+}
+
+function get_pairs(population, init_pop_size, matrix) {
+    let rand_numbers1 = [];
+    let rand_numbers2 = [];
+    let pairs = [];
+    // Составляем пары
+    while(pairs.length == 0) {
+        rand_numbers1 = shuffle(generateRandomNodes(init_pop_size));
+        rand_numbers2 = shuffle(generateRandomNodes(init_pop_size));
+        for(let i = 0; i < init_pop_size; i++) {
+            if(getFitness(population[rand_numbers1[i]], matrix) !== getFitness(population[rand_numbers2[i]], matrix))
+                pairs.push([rand_numbers1[i], rand_numbers2[i]]);
+        }
+    }
+    return pairs;
+}
+
+// Tournament
+function tournament(participants_count, init_pop_size, population, matrix) {
+    let new_pop = [];
+    let pop_size = population.length;
+    // Amount of tournaments
+    for(let i = 0; i < init_pop_size; i++) {
+        let participants = [];
+        for(let j = 0; j < participants_count; j++) {
+            let participant = getRndInteger(0, pop_size);
+            participants.push([getFitness(population[participant], matrix), participant]);
+        }
+        // Соритруем участников по длине пути
+        participants = participants.sort(function(a, b) {
+            return a[0] == b[0] ? 0 : a[0] > b[0] ? 1 : -1;
+        });
+        new_pop.push(population[participants[0][1]]);
+    }
+    return new_pop;
+}
+
+const roundTime = (time) => {
+    return ((Date.now() - time) / 1000).toFixed(2);
 }

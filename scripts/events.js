@@ -26,6 +26,9 @@ const createTest = () => {
     else if(alg === 'evoDeFriz') {
         createEvoDeFrizWorker();
     }
+    else if(alg ==='nearest') {
+        createNearestWorker();
+    }
     else if (alg === '2opt') {
         create2optWorker();
     }

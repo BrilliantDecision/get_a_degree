@@ -39,9 +39,10 @@ const doTwoOpt = (values) => {
             o = false;
         }
     }
+    
     return { 
         flag: 0,
-        time: Math.ceil((Date.now() - time) / 1000), 
+        time: roundTime(time), 
         len: Math.ceil(currentBestLength),
         path: currentBestPath,
     };

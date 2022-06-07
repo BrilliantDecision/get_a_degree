@@ -18,61 +18,14 @@ const onIisBodies = () => {
     return +value;
 }
 
-const onIisSelect = () => {
-    const value = document.getElementById('onChangeIisSelect').value;
-    return +value;
-}
-
 const onIisClones = () => {
     const value = document.getElementById('onChangeIisClones').value;
-    return parseFloat(value);
-}
-
-const onIisAlpha = () => {
-    const value = document.getElementById('onChangeIisAlpha').value;
     return parseFloat(value);
 }
 
 const selection = (selectBodiesNum, population, matrix) => {
     population.sort((a,b) => getFitness(b, matrix) - getFitness(a, matrix));
     return population.slice(0, selectBodiesNum);
-}
-
-const getClones = (clonesNum, body) => {
-    const clonesArray = [];
-
-    for(let i = 0; i < clonesNum; i++) {
-        clonesArray.push([...body]);
-    }
-
-    return clonesArray;
-}
-
-const mutate = (alpha, clone, n, matrix) => {
-    // const mutIt = Math.ceil(Math.exp(alpha * getFitness(clone, matrix)));
-    const mutIt = 12;
-
-    for(let i = 0; i < mutIt; i++) {
-        rand_swap(clone, n);
-    }
-}
-
-const createClones = (population, clonesNum) => {
-    const clones = [];
-
-    for(const body of population) {
-        clones.push(getClones(clonesNum, body));
-    }
-
-    return clones;
-}
-
-const mutateClones = (clones, alpha, n, matrix) => {
-    for(const cloneArr of clones) {
-        for(const clone of cloneArr) {
-            mutate(alpha, clone, n, matrix);
-        }
-    }
 }
 
 const getBestPath = (paths, matrix) => {
@@ -87,28 +40,74 @@ const getBestPath = (paths, matrix) => {
     return [bestPath, getFitness(bestPath, matrix)];
 }
 
-const changeParentIfCloneBest = (population, clones, matrix) => {
-    for(let i = 0; i < population.length; i++) {
-        const [bestClone, bestCloneLength] = getBestPath(clones[i], matrix);
+const createFirstIisPopulation = (options) => {
+    const [popSize, matrix, posNum, maxPopSize, liveTime] = options;
+    const startVertex = getRndInteger(0, matrix.length);
+    const clonePositions = getRandCreateClonePositions(matrix.length, posNum);
+    const clonesNum = getClonesNum(maxPopSize, popSize);
+    const population = [];
+    let randVertexes = getRandPath(matrix.length);
+    let nextVertexes = [];
 
-        if(getFitness(population[i], matrix) > bestCloneLength) {
-            population[i] = [...bestClone];
+    randVertexes.sort((a,b) => matrix[startVertex][a] - matrix[startVertex][b]);
+    randVertexes = randVertexes.filter((v) => v !== startVertex);
+    nextVertexes = randVertexes.slice(0, popSize);
+
+    for(let i = 0; i < nextVertexes.length; i++) {
+        const allowVertexes = randVertexes.filter((v) => v !== nextVertexes[i]);
+        const leukocyte = new Leukocyte(liveTime);
+        leukocyte.initializeAllow(allowVertexes);
+        leukocyte.addToPath(startVertex);
+        leukocyte.setNext(nextVertexes[i]);
+        population.push(leukocyte);
+    }
+
+    while(true) {
+        if(population[0].getAllow().length === 0) {
+            break;
+        }
+
+        for(const e of population) {
+            e.addToPath(e.getNext());
+
+            if(clonePositions.includes(e.getNext())) {
+                e.addToClones(...createClones(clonesNum, e.getPath()));
+            }
+
+            e.createNext(matrix);
         }
     }
 }
 
-// Create population
-function create_population(n, pop_size) {
-    let population = [];
-    let one_population = [];
-    for(let i = 0; i < n; i++) {
-        one_population.push(i);
+const getRandCreateClonePositions = (pathLength, posNum) => {
+    const positions = [];
+
+    for(let i = 0; i < posNum; i++) {
+        const pos = getRndInteger(0, pathLength);
+
+        if(!positions.includes(pos)) {
+            positions.push(pos);
+        }
     }
-    let new_arr = shuffle(one_population);
-    population.push(new_arr);
-    for(let i = 1; i < pop_size; i++) {
-        new_arr = shuffle(one_population);
-        population.push(new_arr);
+
+    return positions;
+}
+
+const createClones = (clonesNum, e) => {
+    const clones = [];
+
+    for(let i = 0; i < clonesNum; i++) {
+        clones.push([...e]);
     }
-    return population;
+
+    return clones;
+}
+
+const getClonesNum = (maxPopSize, popSize) => {
+    if(maxPopSize < popSize) {
+        console.log('maxPopSize < popSize');
+        return 0;
+    }
+
+    return Math.ceil(Math.log2(maxPopSize / popSize));
 }

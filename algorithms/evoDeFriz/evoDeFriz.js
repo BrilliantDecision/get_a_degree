@@ -3,9 +3,9 @@ function doEvoDeFriz(values) {
         it,
         popSize,
         tourParticipants,
-        mutChance,
         reviseIt,
         mutIt,
+        uniqueNum,
         nodes,
         ifDraw
     } = values;
@@ -27,7 +27,7 @@ function doEvoDeFriz(values) {
         });
         let pairs = get_pairs(population, initPopSize, matrix);
         let children = cycle_crossover(pairs, population, nodesLen);
-        gen_mutate(children, nodesLen, mutChance);
+        gen_mutate(children, 1 - currentIt / it); 
         population = tournament(tourParticipants, initPopSize, children, matrix);
 
         const [currentPath, currentLength] = get_best_path(population, initPopSize, matrix);
@@ -35,7 +35,6 @@ function doEvoDeFriz(values) {
         if (bestLength > currentLength) {
             bestPath = currentPath;
             bestLength = currentLength;
-            reviseCurrentIt = 1;
 
             if(ifDraw) {
                 self.postMessage({
@@ -44,21 +43,19 @@ function doEvoDeFriz(values) {
                 });
             }
         } 
-        else {
-            reviseCurrentIt++;
-        }
 
         if(reviseCurrentIt > reviseIt) {
-            population = revise(nodesLen, mutIt, tourParticipants, initPopSize / 2, population, matrix);
+            revise(population, uniqueNum, mutIt);
             reviseCurrentIt = 1;
         }
 
         currentIt++;
+        reviseCurrentIt ++;
     }
 
     return { 
         flag: 0,
-        time: Math.ceil((Date.now() - time) / 1000), 
+        time: roundTime(time), 
         len: Math.ceil(bestLength),
         path: bestPath,
     };

@@ -7,7 +7,6 @@ const createEvoDarwinWorker = () => {
             it: onDarwinIter(),
             popSize: onDarwinPopSize(),
             tourParticipants: onDarwinTournament(),
-            mutChance: onDarwinMutChance(),
             nodes: s.graph.nodes(),
             ifDraw
         }
